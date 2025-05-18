@@ -25,7 +25,6 @@ from bot import Bot
 from config import *
 from helper_func import *
 from database.database import *
-from config import HELP_TXT, ABOUT_TXT, CMD_TXT
 
 BAN_SUPPORT = f"{BAN_SUPPORT}"
 
@@ -270,40 +269,7 @@ async def not_joined(client: Client, message: Message):
 
 #=====================================================================================##
 
-
-@Bot.on_message(filters.command('help') & filters.private)
-async def help_command(client: Client, message: Message):
+@Bot.on_message(filters.command('commands') & filters.private & admin)
+async def bcmd(bot: Bot, message: Message):        
     reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("• ᴄʟᴏsᴇ •", callback_data = "close")]])
-    await message.reply(text=HELP_TXT, reply_markup=reply_markup, quote=True)
-
-@Bot.on_message(filters.command('about') & filters.private)
-async def about_command(client: Client, message: Message):
-    reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("• ᴄʟᴏsᴇ •", callback_data = "close")]])
-    await message.reply(text=ABOUT_TXT, reply_markup=reply_markup, quote=True)
-
-@Bot.on_message(filters.command('commands') & filters.private & filters.user(admin_ids))
-async def commands_command(client: Client, message: Message):
-    reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("• ᴄʟᴏsᴇ •", callback_data = "close")]])
-    await message.reply(text=CMD_TXT, reply_markup=reply_markup, quote=True)
-
-@Bot.on_callback_query(filters.regex('about'))
-async def about_callback(client: Client, query):
-    reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("• ᴄʟᴏsᴇ •", callback_data = "close")]])
-    await query.message.edit(text=ABOUT_TXT, reply_markup=reply_markup)
-
-@Bot.on_callback_query(filters.regex('help'))
-async def help_callback(client: Client, query):
-    reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("• ᴄʟᴏsᴇ •", callback_data = "close")]])
-    await query.message.edit(text=HELP_TXT, reply_markup=reply_markup)
-
-@Bot.on_callback_query(filters.regex('commands'))
-async def commands_callback(client: Client, query):
-    if query.from_user.id in admin_ids:
-        reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("• ᴄʟᴏsᴇ •", callback_data = "close")]])
-        await query.message.edit(text=CMD_TXT, reply_markup=reply_markup)
-    else:
-        await query.answer("Anda tidak memiliki akses ke perintah ini.")
-
-@Bot.on_callback_query(filters.regex('close'))
-async def close_callback(client: Client, query):
-    await query.message.delete()
+    await message.reply(text=CMD_TXT, reply_markup = reply_markup, quote= True)
