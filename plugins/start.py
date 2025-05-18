@@ -25,7 +25,7 @@ from bot import Bot
 from config import *
 from helper_func import *
 from database.database import *
-from config import HELP_TXT, ABOUT_TXT, CMD_TXT, admin_ids
+from config import HELP_TXT, ABOUT_TXT, CMD_TXT
 
 BAN_SUPPORT = f"{BAN_SUPPORT}"
 
