@@ -62,19 +62,28 @@ async def stats(client, message):
     uptime_str = format_uptime(uptime)
     output = f"""
 <b>Stats 📊</b>
-<blockquote>Ping: {ping_time}ms</blockquote>
-<blockquote>Uptime: {uptime_str}</blockquote>
+<blockquote>
+    ⏱️ Ping: {ping_time}ms
+    ⏰ Uptime: {uptime_str}
+</blockquote>
+
 <b>Speedtest Results 📈</b>
-<blockquote>Client:</blockquote>
-<blockquote>ISP: {result['client']['isp']}</blockquote>
-<blockquote>Country: {result['client']['country']}</blockquote>
-<blockquote>Server:</blockquote>
-<blockquote>Name: {result['server']['name']}</blockquote>
-<blockquote>Country: {result['server']['country']}, {result['server']['cc']}</blockquote>
-<blockquote>Sponsor: {result['server']['sponsor']}</blockquote>
-<blockquote>Ping: {result['ping']}</blockquote>
-<blockquote>Download: {round(result['download'] / 1024 / 1024, 2)} Mbps</blockquote>
-<blockquote>Upload: {round(result['upload'] / 1024 / 1024, 2)} Mbps</blockquote>
+<blockquote>
+    👥 <b>Client:</b>
+    📡 ISP: {result['client']['isp']}
+    🌎 Country: {result['client']['country']}
+</blockquote>
+<blockquote>
+    🏢 <b>Server:</b>
+    📝 Name: {result['server']['name']}
+    🌎 Country: {result['server']['country']}, {result['server']['cc']}
+    💼 Sponsor: {result['server']['sponsor']}
+</blockquote>
+<blockquote>
+    ⏱️ Ping: {result['ping']}
+    ⬇️ Download: {round(result['download'] / 1024 / 1024, 2)} Mbps
+    ⬆️ Upload: {round(result['upload'] / 1024 / 1024, 2)} Mbps
+</blockquote>
 """
     await msg.edit_text(output)
 #=====================================================================================##
@@ -84,7 +93,9 @@ WAIT_MSG = "<b>Loading....</b>"
 #=====================================================================================##
 
 
-@Bot.on_message(filters.command('users') & filters.private & admin)
+@Bot.on_message(
+    
+    lters.command('users') & filters.private & admin)
 async def get_users(client: Bot, message: Message):
     msg = await client.send_message(chat_id=message.chat.id, text=WAIT_MSG)
     users = await db.full_userbase()
