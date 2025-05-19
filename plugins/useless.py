@@ -15,6 +15,7 @@ import os
 import random
 import sys
 import time
+import speedtest
 from datetime import datetime, timedelta
 from pyrogram import Client, filters, __version__
 from pyrogram.enums import ParseMode, ChatAction
