@@ -61,7 +61,6 @@ async def stats(client, message):
     uptime = timedelta(seconds=time.time() - start_time)
     uptime_str = format_uptime(uptime)
     output = f"""
-📊 *output = f"""
 📊 <b>Stats</b>
 <blockquote>Ping: {ping_time}ms</blockquote>
 <blockquote>Uptime: {uptime_str}</blockquote>
