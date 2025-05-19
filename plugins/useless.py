@@ -45,7 +45,7 @@ def format_uptime(uptime):
 
 @Bot.on_message(filters.command(["ping", "speedtest", "stats"]) & admin)
 async def stats(client, message):
-    msg = await message.reply_text("Mengambil Status...!")
+    msg = await message.reply_text("Getting stats...")
     start_time_msg = time.time()
     try:
         test = speedtest.Speedtest()
@@ -61,10 +61,10 @@ async def stats(client, message):
     uptime = timedelta(seconds=time.time() - start_time)
     uptime_str = format_uptime(uptime)
     output = f"""
-📊 <b>Stats</b>
+<b>Stats 📊</b>
 <blockquote>Ping: {ping_time}ms</blockquote>
 <blockquote>Uptime: {uptime_str}</blockquote>
-📈 <b>Speedtest Results</b>
+<b>Speedtest Results 📈</b>
 <blockquote>Client:</blockquote>
 <blockquote>ISP: {result['client']['isp']}</blockquote>
 <blockquote>Country: {result['client']['country']}</blockquote>
@@ -76,7 +76,7 @@ async def stats(client, message):
 <blockquote>Download: {round(result['download'] / 1024 / 1024, 2)} Mbps</blockquote>
 <blockquote>Upload: {round(result['upload'] / 1024 / 1024, 2)} Mbps</blockquote>
 """
-    
+    await msg.edit_text(output)
 #=====================================================================================##
 
 WAIT_MSG = "<b>Loading....</b>"
