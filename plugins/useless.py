@@ -93,9 +93,7 @@ WAIT_MSG = "<b>Loading....</b>"
 #=====================================================================================##
 
 
-@Bot.on_message(
-    
-    lters.command('users') & filters.private & admin)
+@Bot.on_message(filters.command('users') & filters.private & admin)
 async def get_users(client: Bot, message: Message):
     msg = await client.send_message(chat_id=message.chat.id, text=WAIT_MSG)
     users = await db.full_userbase()
