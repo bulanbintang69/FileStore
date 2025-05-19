@@ -9,7 +9,7 @@ from helper_func import encode, get_message_id, admin
 
 @Bot.on_message(filters.private & admin & filters.command('batch'))
 async def batch(client: Client, message: Message):
-    STOP_KEYBOARD = ReplyKeyboardMarkup([["BATAL"]], resize_keyboard=True)
+    STOP_KEYBOARD = ReplyKeyboardMarkup([["BATAL ❌"]], resize_keyboard=True)
     await message.reply("Forward the First Message from DB Channel (with Quotes)..\n\nor Send the DB Channel Post Link", reply_markup=STOP_KEYBOARD)
     while True:
         try:
@@ -17,7 +17,7 @@ async def batch(client: Client, message: Message):
         except:
             await message.reply("Batch cancelled.", reply_markup=ReplyKeyboardRemove())
             return
-        if first_message.text and first_message.text.strip().upper() == "STOP":
+        if first_message.text and first_message.text.strip().upper() == "BATAL ❌":
             await message.reply("Batch cancelled.", reply_markup=ReplyKeyboardRemove())
             return
         f_msg_id = await get_message_id(client, first_message)
@@ -31,10 +31,10 @@ async def batch(client: Client, message: Message):
         try:
             second_message = await client.ask(text = "Forward the Last Message from DB Channel (with Quotes)..\nor Send the DB Channel Post link", chat_id = message.from_user.id, filters=(filters.forwarded | (filters.text & ~filters.forwarded)), timeout=60)
         except:
-            await message.reply("Batch cancelled.", reply_markup=ReplyKeyboardRemove())
+            await message.reply("❌ Proses batch dibatalkan!.", reply_markup=ReplyKeyboardRemove())
             return
-        if second_message.text and second_message.text.strip().upper() == "STOP":
-            await message.reply("Batch cancelled.", reply_markup=ReplyKeyboardRemove())
+        if second_message.text and second_message.text.strip().upper() == "BATAL ❌":
+            await message.reply("❌ Proses batch dibatalkan!.", reply_markup=ReplyKeyboardRemove())
             return
         s_msg_id = await get_message_id(client, second_message)
         if s_msg_id:
@@ -72,7 +72,7 @@ async def link_generator(client: Client, message: Message):
 @Bot.on_message(filters.private & admin & filters.command("custom_batch"))
 async def custom_batch(client: Client, message: Message):
     collected = []
-    STOP_KEYBOARD = ReplyKeyboardMarkup([["BATAL"]], resize_keyboard=True)
+    STOP_KEYBOARD = ReplyKeyboardMarkup([["BATAL ❌"]], resize_keyboard=True)
 
     await message.reply("Send all messages you want to include in batch.\n\nPress STOP when you're done.", reply_markup=STOP_KEYBOARD)
 
@@ -86,7 +86,7 @@ async def custom_batch(client: Client, message: Message):
         except asyncio.TimeoutError:
             break
 
-        if user_msg.text and user_msg.text.strip().upper() == "STOP":
+        if user_msg.text and user_msg.text.strip().upper() == "BATAL ❌":
             break
 
         try:
@@ -99,7 +99,7 @@ async def custom_batch(client: Client, message: Message):
     await message.reply("✅ Batch collection complete.", reply_markup=ReplyKeyboardRemove())
 
     if not collected:
-        await message.reply("❌ No messages were added to batch.")
+        await message.reply("❌ Proses batch dibatalkan!.")
         return
 
     start_id = collected[0] * abs(client.db_channel.id)
