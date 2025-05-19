@@ -35,7 +35,39 @@ async def stats(bot: Bot, message: Message):
     time = get_readable_time(delta.seconds)
     await message.reply(BOT_STATS_TEXT.format(uptime=time))
 
-
+@Bot.on_message(filters.command(["ping", "speedtest", "stats2"]))
+async def stats(client, message):
+    start_time = time.time()
+    msg = await message.reply_text("Getting stats...")
+    end_time = time.time()
+    ping_time = round((end_time - start_time) * 1000, 3)
+    uptime = timedelta(seconds=time.time() - client.start_time)
+    try:
+        test = speedtest.Speedtest()
+        test.get_best_server()
+        test.download()
+        test.upload()
+        test.results.share()
+        result = test.results.dict()
+    except Exception as e:
+        await msg.edit_text(e)
+        return
+    output = f"""Stats
+Ping: `{ping_time}ms`
+Uptime: `{uptime}`
+Speedtest Results:
+  Client:
+    ISP: {result['client']['isp']}
+    Country: {result['client']['country']}
+  Server:
+    Name: {result['server']['name']}
+    Country: {result['server']['country']}, {result['server']['cc']}
+    Sponsor: {result['server']['sponsor']}
+  Ping: {result['ping']}
+  Download: {round(result['download'] / 1024 / 1024, 2)} Mbps
+  Upload: {round(result['upload'] / 1024 / 1024, 2)} Mbps"""
+    await msg.edit_text(output)
+    
 #=====================================================================================##
 
 WAIT_MSG = "<b>Working....</b>"
