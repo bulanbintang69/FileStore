@@ -45,15 +45,23 @@ FORCE_PIC = os.environ.get("FORCE_PIC", "https://telegra.ph/file/e292b12890b8b4b
 #HELP_TXT = "<b><blockquote>ᴛʜɪs ɪs ᴀɴ ғɪʟᴇ ᴛᴏ ʟɪɴᴋ ʙᴏᴛ ᴡᴏʀᴋ ғᴏʀ @Nova_Flix\n\n❏ ʙᴏᴛ ᴄᴏᴍᴍᴀɴᴅs\n├/start : sᴛᴀʀᴛ ᴛʜᴇ ʙᴏᴛ\n├/about : ᴏᴜʀ Iɴғᴏʀᴍᴀᴛɪᴏɴ\n└/help : ʜᴇʟᴘ ʀᴇʟᴀᴛᴇᴅ ʙᴏᴛ\n\n sɪᴍᴘʟʏ ᴄʟɪᴄᴋ ᴏɴ ʟɪɴᴋ ᴀɴᴅ sᴛᴀʀᴛ ᴛʜᴇ ʙᴏᴛ ᴊᴏɪɴ ʙᴏᴛʜ ᴄʜᴀɴɴᴇʟs ᴀɴᴅ ᴛʀʏ ᴀɢᴀɪɴ ᴛʜᴀᴛs ɪᴛ.....!\n\n ᴅᴇᴠᴇʟᴏᴘᴇᴅ ʙʏ <a href=https://t.me/cosmic_freak>sᴜʙᴀʀᴜ</a></blockquote></b>"
 HELP_TXT = """<blockquote><b>» Perintah Admin:</b></blockquote>
 <b>›› /start :</b> Mulai bot atau dapatkan postingan
-<b>›› /batch :</b> Buat tautan untuk batch postingan
+<b>›› /batch :</b> Buat tautan untuk lebih dari satu postingan
 <b>›› /genlink :</b> Buat tautan untuk satu postingan
-<b>›› /users :</b> Lihat statistik pengguna bot
-<b>›› /broadcast :</b> Kirim pesan siaran ke pengguna
-<b>›› /dbroadcast :</b> Kirim siaran dengan penghapusan otomatis
+<b>›› /users :</b> Lihat statistik bot
+<b>›› /broadcast :</b> Kirim pesan siaran ke pengguna bot
+<b>›› /dbroadcast :</b> Kirim pesan siaran dengan penghapusan otomatis
 <b>›› /stats :</b> Periksa waktu aktif bot
-<b>›› /ban :</b> Larang pengguna dari bot
-<b>›› /unban :</b> Batalkan larangan pengguna
+<b>›› /custom_batch :</b> Buat batch kustom dari channel/grup
+<b>›› /dlt_time :</b> Atur waktu penghapusan otomatis untuk file
+<b>›› /check_dlt_time :</b> Periksa pengaturan waktu penghapusan saat ini
+<b>›› /ban :</b> Larang pengguna dari menggunakan bot
+<b>›› /unban :</b> Batalkan larangan pengguna yang sebelumnya dilarang
 <b>›› /banlist :</b> Dapatkan daftar pengguna yang dilarang
+<b>›› /addchnl :</b> Tambahkan channel untuk langganan paksa
+<b>›› /delchnl :</b> Hapus channel langganan paksa
+<b>›› /listchnl :</b> Lihat semua channel langganan paksa yang ditambahkan
+<b>›› /fsub_mode :</b> Aktifkan atau nonaktifkan langganan paksa
+<b>›› /pbroadcast :</b> Sematkan siaran ke semua obrolan pengguna
 <b>›› /add_admin :</b> Tambahkan admin baru
 <b>›› /deladmin :</b> Hapus admin
 <b>›› /admins :</b> Daftar semua admin saat ini"""
