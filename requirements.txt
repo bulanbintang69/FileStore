@@ -1,5 +1,6 @@
 #https://codeload.github.com/KurimuzonAkuma/pyrogram/zip/refs/heads/dev
 pyrofork==2.3.45 
+speedtest-cli
 TgCrypto
 pyromod==1.5
 schedule
