@@ -76,7 +76,6 @@ async def stats(client, message):
 <blockquote>Download: {round(result['download'] / 1024 / 1024, 2)} Mbps</blockquote>
 <blockquote>Upload: {round(result['upload'] / 1024 / 1024, 2)} Mbps</blockquote>
 """
-await msg.edit_text(output, parse_mode="html")
     
 #=====================================================================================##
 
