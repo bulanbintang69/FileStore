@@ -28,18 +28,25 @@ from helper_func import *
 from database.database import *
 
 start_time = time.time()
+
+def format_uptime(uptime):
+    days = uptime.days
+    hours, remainder = divmod(uptime.seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    if days > 0:
+        return f"{days}d {hours}h {minutes}m {seconds}s"
+    elif hours > 0:
+        return f"{hours}h {minutes}m {seconds}s"
+    elif minutes > 0:
+        return f"{minutes}m {seconds}s"
+    else:
+        return f"{seconds}s"
 #=====================================================================================##
 
-@Bot.on_message(filters.command('stats') & admin)
-async def stats(bot: Bot, message: Message):
-    now = datetime.now()
-    delta = now - bot.uptime
-    time = get_readable_time(delta.seconds)
-    await message.reply(BOT_STATS_TEXT.format(uptime=time))
-
-@Bot.on_message(filters.command(["ping", "speedtest", "stats2"]))
+@Bot.on_message(filters.command(["ping", "speedtest", "stats"]) & admin)
 async def stats(client, message):
     msg = await message.reply_text("Getting stats...")
+    start_time_msg = time.time()
     try:
         test = speedtest.Speedtest()
         test.get_best_server()
@@ -50,23 +57,29 @@ async def stats(client, message):
     except Exception as e:
         await msg.edit_text(e)
         return
-    ping_time = round((time.time() - (msg.date.timestamp())) * 1000, 3)
+    ping_time = round((time.time() - start_time_msg) * 1000, 3)
     uptime = timedelta(seconds=time.time() - start_time)
-    output = f"""Stats
-Ping: `{ping_time}ms`
-Uptime: `{uptime}`
-Speedtest Results:
-  Client:
-    ISP: {result['client']['isp']}
-    Country: {result['client']['country']}
-  Server:
-    Name: {result['server']['name']}
-    Country: {result['server']['country']}, {result['server']['cc']}
-    Sponsor: {result['server']['sponsor']}
-  Ping: {result['ping']}
-  Download: {round(result['download'] / 1024 / 1024, 2)} Mbps
-  Upload: {round(result['upload'] / 1024 / 1024, 2)} Mbps"""
-    await msg.edit_text(output)
+    uptime_str = format_uptime(uptime)
+    output = f"""
+📊 **Stats**
+> Ping: `{ping_time}ms`
+> Uptime: `{uptime_str}`
+> 
+📈 **Speedtest Results**
+> Client:
+> > ISP: {result['client']['isp']}
+> > Country: {result['client']['country']}
+> 
+> Server:
+> > Name: {result['server']['name']}
+> > Country: {result['server']['country']}, {result['server']['cc']}
+> > Sponsor: {result['server']['sponsor']}
+> > Ping: {result['ping']}
+> 
+> Download: {round(result['download'] / 1024 / 1024, 2)} Mbps
+> Upload: {round(result['upload'] / 1024 / 1024, 2)} Mbps
+"""
+    await msg.edit_text(output, parse_mode="markdown")
     
 #=====================================================================================##
 
