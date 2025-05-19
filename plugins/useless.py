@@ -26,6 +26,7 @@ from config import *
 from helper_func import *
 from database.database import *
 
+start_time = time.time()
 #=====================================================================================##
 
 @Bot.on_message(filters.command('stats') & admin)
@@ -37,11 +38,7 @@ async def stats(bot: Bot, message: Message):
 
 @Bot.on_message(filters.command(["ping", "speedtest", "stats2"]))
 async def stats(client, message):
-    start_time = time.time()
     msg = await message.reply_text("Getting stats...")
-    end_time = time.time()
-    ping_time = round((end_time - start_time) * 1000, 3)
-    uptime = timedelta(seconds=time.time() - client.start_time)
     try:
         test = speedtest.Speedtest()
         test.get_best_server()
@@ -52,6 +49,8 @@ async def stats(client, message):
     except Exception as e:
         await msg.edit_text(e)
         return
+    ping_time = round((time.time() - (msg.date.timestamp())) * 1000, 3)
+    uptime = timedelta(seconds=time.time() - start_time)
     output = f"""Stats
 Ping: `{ping_time}ms`
 Uptime: `{uptime}`
