@@ -64,7 +64,7 @@ async def stats(client, message):
 <b>📊 Stats Bot</b>
 <blockquote>⏰ Uptime: {uptime_str}</blockquote>
 <b>📈 Speedtest Results</b>
-<blockquote>👥 <b>Client ⤵️</b>
+<blockquote>    👥 <b>Client ⤵️</b>
     📡 ISP: {result['client']['isp']}
     🌎 Country: {result['client']['country']}
     🏢 <b>Server ⤵️</b>
