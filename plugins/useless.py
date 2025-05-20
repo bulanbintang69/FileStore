@@ -77,6 +77,15 @@ async def stats(client, message):
 """
     await msg.edit_text(output)
 #=====================================================================================##
+@Bot.on_message(filters.command('id'))
+async def get_id(client: Bot, message: Message):
+    if message.chat.type == "private":
+        await message.reply(f"<b>ID Anda: <code>{message.from_user.id}</code></b>")
+    elif message.chat.type in ["group", "supergroup"]:
+        await message.reply(f"<b>ID Group: <code>{message.chat.id}</code></b>\n<b>ID Anda: <code>{message.from_user.id}</code></b>")
+    elif message.chat.type == "channel":
+        await message.reply(f"<b>ID Channel: <code>{message.chat.id}</code></b>")
+#=====================================================================================##
 
 WAIT_MSG = "<b>Loading....</b>"
 
