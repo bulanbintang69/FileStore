@@ -78,13 +78,33 @@ async def stats(client, message):
     await msg.edit_text(output)
 #=====================================================================================##
 @Bot.on_message(filters.command('id'))
-async def get_id(client: Bot, message: Message):
-    if message.chat.type == "private":
-        await message.reply(f"<b>ID Anda: <code>{message.from_user.id}</code></b>")
-    elif message.chat.type in ["group", "supergroup"]:
-        await message.reply(f"<b>ID Group: <code>{message.chat.id}</code></b>\n<b>ID Anda: <code>{message.from_user.id}</code></b>")
+async def get_info(client: Bot, message: Message):
+    if message.chat.type in ["group", "supergroup"]:
+        chat = await client.get_chat(message.chat.id)
+        members_count = await client.get_chat_members_count(chat.id)
+        chat_member = await client.get_chat_member(chat.id, message.from_user.id)
+        await message.reply(f"**Info Grup**\n\n"
+                            f"**ID:** `{chat.id}`\n"
+                            f"**Judul:** `{chat.title}`\n"
+                            f"**Deskripsi:** `{chat.description}`\n"
+                            f"**Jumlah Anggota:** `{members_count}`\n"
+                            f"**Status Anda:** `{chat_member.status}`\n"
+                            f"**Izin Anda:** `{chat_member.permissions}`")
     elif message.chat.type == "channel":
-        await message.reply(f"<b>ID Channel: <code>{message.chat.id}</code></b>")
+        chat = await client.get_chat(message.chat.id)
+        members_count = await client.get_chat_members_count(chat.id)
+        await message.reply(f"**Info Channel**\n\n"
+                            f"**ID:** `{chat.id}`\n"
+                            f"**Judul:** `{chat.title}`\n"
+                            f"**Deskripsi:** `{chat.description}`\n"
+                            f"**Jumlah Anggota:** `{members_count}`")
+    elif message.chat.type == "private":
+        user = await client.get_users(message.from_user.id)
+        await message.reply(f"**Info User**\n\n"
+                            f"**ID:** `{user.id}`\n"
+                            f"**Nama:** `{user.first_name}`\n"
+                            f"**Username:** `{user.username}`\n"
+                            f"**Status Online:** `{user.status}`")
 #=====================================================================================##
 
 WAIT_MSG = "<b>Loading....</b>"
