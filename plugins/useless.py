@@ -61,29 +61,19 @@ async def stats(client, message):
     uptime = timedelta(seconds=time.time() - start_time)
     uptime_str = format_uptime(uptime)
     output = f"""
-<b>Stats 📊</b>
-<blockquote>
-    ⏱️ Ping: {ping_time}ms
-    ⏰ Uptime: {uptime_str}
-</blockquote>
-
-<b>Speedtest Results 📈</b>
-<blockquote>
-    👥 <b>Client:</b>
+<b>📊 Stats Bot</b>
+<blockquote>⏰ Uptime: {uptime_str}</blockquote>
+<b>📈 Speedtest Results</b>
+<blockquote>👥 <b>Client ⤵️</b>
     📡 ISP: {result['client']['isp']}
     🌎 Country: {result['client']['country']}
-</blockquote>
-<blockquote>
-    🏢 <b>Server:</b>
+    🏢 <b>Server ⤵️</b>
     📝 Name: {result['server']['name']}
     🌎 Country: {result['server']['country']}, {result['server']['cc']}
     💼 Sponsor: {result['server']['sponsor']}
-</blockquote>
-<blockquote>
     ⏱️ Ping: {result['ping']}
     ⬇️ Download: {round(result['download'] / 1024 / 1024, 2)} Mbps
-    ⬆️ Upload: {round(result['upload'] / 1024 / 1024, 2)} Mbps
-</blockquote>
+    ⬆️ Upload: {round(result['upload'] / 1024 / 1024, 2)} Mbps</blockquote>
 """
     await msg.edit_text(output)
 #=====================================================================================##
