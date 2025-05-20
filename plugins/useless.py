@@ -79,6 +79,19 @@ async def stats(client, message):
 #=====================================================================================##
 @Bot.on_message(filters.command('id'))
 async def get_info(client: Bot, message: Message):
+    try:
+        if message.chat.type in ["group", "supergroup"]:
+            await message.reply(f"**ID Grup:** `{message.chat.id}`")
+        elif message.chat.type == "channel":
+            await message.reply(f"**ID Channel:** `{message.chat.id}`")
+        elif message.chat.type == "private":
+            await message.reply(f"**ID User:** `{message.from_user.id}`")
+    except Exception as e:
+        await message.reply(f"Error: {e}")
+
+
+@Bot.on_message(filters.command('p'))
+async def get_info(client: Bot, message: Message):
     if message.chat.type in ["group", "supergroup"]:
         chat = await client.get_chat(message.chat.id)
         members_count = await client.get_chat_members_count(chat.id)
