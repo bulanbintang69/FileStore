@@ -152,11 +152,7 @@ async def start_command(client: Client, message: Message):
         [   InlineKeyboardButton("• ᴄʜᴀɴɴᴇʟs •", url="https://t.me/Anime_Bahasa_Indonesia"), 
             InlineKeyboardButton("• ɢʀᴏᴜᴘ •", url="https://t.me/group_anime_indonesia")
         ], 
-        [   InlineKeyboardButton("• ᴛᴜᴛᴏʀɪᴀʟ •", url="https://t.me/Rebus_Kacang/9")],
-        [
-            InlineKeyboardButton("• ᴀʙᴏᴜᴛ", callback_data="about"),
-            InlineKeyboardButton('ʜᴇʟᴘ •', callback_data="help")
-        ]
+        [   InlineKeyboardButton("• ᴛᴜᴛᴏʀɪᴀʟ •", url="https://t.me/Rebus_Kacang/9")]
     ]
         )
         await message.reply_photo(
