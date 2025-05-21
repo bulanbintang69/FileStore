@@ -59,7 +59,7 @@ async def ping_command(client, message):
     output = f"""<b>📊 Ping & Uptime</b>
     <blockquote>💡 Ping: {ping}
     ⏰ Uptime: {uptime_str}</blockquote>"""
-    await msg.edit_text(output, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔄 Refresh", callback_data="refresh_ping")]]), message_effect_id=5104841245755180586)
+    await msg.edit_text(output, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔄 Refresh", callback_data="refresh_ping")]]))
     
 @Bot.on_message(filters.command(["speedtest", "stats"]) & admin)
 async def stats(client, message):
