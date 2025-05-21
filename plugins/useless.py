@@ -27,6 +27,8 @@ from config import *
 from helper_func import *
 from database.database import *
 
+from pyrogram import filters
+
 start_time = time.time()
 
 def format_uptime(uptime):
@@ -41,6 +43,26 @@ def format_uptime(uptime):
         return f"{minutes}m {seconds}s"
     else:
         return f"{seconds}s"
+
+
+@Bot.on_callback_query(filters.regex("refresh_ping"))
+async def refresh_ping(client, callback_query):
+    msg = callback_query.message
+    start_time_msg = time.time()
+    try:
+        test = speedtest.Speedtest()
+        test.get_servers()
+        ping = test.results.ping
+    except Exception as e:
+        await msg.edit_text(f"❌ {e}", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔄 Refresh", callback_data="refresh_ping")]]))
+        return
+    ping_time = round((time.time() - start_time_msg) * 1000, 3)
+    uptime = timedelta(seconds=time.time() - start_time)
+    uptime_str = format_uptime(uptime)
+    output = f"""<b>📊 Ping & Uptime</b>
+    <blockquote>💡 Ping: {ping}
+    ⏰ Uptime: {uptime_str}</blockquote>"""
+    await msg.edit_text(output, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔄 Refresh", callback_data="refresh_ping")]]))
 
 @Bot.on_message(filters.command('ping'))
 async def ping_command(client, message):
@@ -59,8 +81,7 @@ async def ping_command(client, message):
     output = f"""<b>📊 Ping & Uptime</b>
     <blockquote>💡 Ping: {ping}
     ⏰ Uptime: {uptime_str}</blockquote>"""
-    await msg.edit_text(output, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔄 Refresh", callback_data="refresh_ping")]]))
-    
+    await msg.edit_text(output, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔄 Refresh", callback_data="refresh_ping")]]))    
 @Bot.on_message(filters.command(["speedtest", "stats"]) & admin)
 async def stats(client, message):
     msg = await message.reply_text("Getting stats...")
