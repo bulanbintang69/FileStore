@@ -43,7 +43,7 @@ def format_uptime(uptime):
         return f"{seconds}s"
 #=====================================================================================##
 
-@Bot.on_message(filters.command(["ping", "speedtest", "stats"]) & admin)
+@Bot.on_message(filters.command(["speedtest", "stats"]) & admin)
 async def stats(client, message):
     msg = await message.reply_text("Getting stats...")
     start_time_msg = time.time()
