@@ -64,16 +64,16 @@ async def stats(client, message):
 <b>📊 Stats Bot</b>
 <blockquote>⏰ Uptime: {uptime_str}</blockquote>
 <b>📈 Speedtest Results</b>
-<blockquote>    👥 <b>Client ⤵️</b>
-    📡 ISP: {result['client']['isp']}
-    🌎 Country: {result['client']['country']}
-    🏢 <b>Server ⤵️</b>
-    📝 Name: {result['server']['name']}
-    🌎 Country: {result['server']['country']}, {result['server']['cc']}
-    💼 Sponsor: {result['server']['sponsor']}
-    ⏱️ Ping: {result['ping']}
-    ⬇️ Download: {round(result['download'] / 1024 / 1024, 2)} Mbps
-    ⬆️ Upload: {round(result['upload'] / 1024 / 1024, 2)} Mbps</blockquote>
+<blockquote>👥 <b>Client :</b>
+    ⟡ ISP: {result['client']['isp']}
+    ⟡ Country: {result['client']['country']}
+🏢 <b>Server :</b>
+    ⟡ Name: {result['server']['name']}
+    ⟡ Country: {result['server']['country']}, {result['server']['cc']}
+    ⟡ Sponsor: {result['server']['sponsor']}
+    ⟡ Ping: {result['ping']}
+    ⟡ Download: {round(result['download'] / 1024 / 1024, 2)} Mbps
+    ⟡ Upload: {round(result['upload'] / 1024 / 1024, 2)} Mbps</blockquote>
 """
     await msg.edit_text(output)
 #=====================================================================================##
