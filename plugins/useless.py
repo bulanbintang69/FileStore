@@ -41,8 +41,16 @@ def format_uptime(uptime):
         return f"{minutes}m {seconds}s"
     else:
         return f"{seconds}s"
-#=====================================================================================##
 
+@Bot.on_message(filters.command('ping'))
+async def ping_command(client: Bot, message: Message):
+    start_time = time.time()
+    msg = await message.reply("⌛️")
+    end_time = time.time()
+    ping_time = round((end_time - start_time) * 1000, 3)
+    uptime = timedelta(seconds=time.time() - start_time_bot)
+    uptime_str = format_uptime(uptime)
+    await msg.edit_text(f"💡 Ping: `{ping_time} ms`\n🕒 Uptime: `{uptime_str}`")
 @Bot.on_message(filters.command(["speedtest", "stats"]) & admin)
 async def stats(client, message):
     msg = await message.reply_text("Getting stats...")
