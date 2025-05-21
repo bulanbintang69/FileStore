@@ -51,6 +51,7 @@ async def ping_command(client: Bot, message: Message):
     uptime = timedelta(seconds=time.time() - start_time_bot)
     uptime_str = format_uptime(uptime)
     await msg.edit_text(f"💡 Ping: `{ping_time} ms`\n🕒 Uptime: `{uptime_str}`")
+    
 @Bot.on_message(filters.command(["speedtest", "stats"]) & admin)
 async def stats(client, message):
     msg = await message.reply_text("Getting stats...")
@@ -84,7 +85,8 @@ async def stats(client, message):
     ⟡ Upload: {round(result['upload'] / 1024 / 1024, 2)} Mbps</blockquote>
 """
     await msg.edit_text(output)
-#=====================================================================================##
+
+
 @Bot.on_message(filters.command('id'))
 async def get_info(client: Bot, message: Message):
     try:
