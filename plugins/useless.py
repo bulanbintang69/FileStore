@@ -43,14 +43,23 @@ def format_uptime(uptime):
         return f"{seconds}s"
 
 @Bot.on_message(filters.command('ping'))
-async def ping_command(client: Bot, message: Message):
-    start_time = time.time()
-    msg = await message.reply("⌛️")
-    end_time = time.time()
-    ping_time = round((end_time - start_time) * 1000, 3)
-    uptime = timedelta(seconds=time.time() - start_time_bot)
+async def ping_command(client, message):
+    msg = await message.reply_text("🔄 Getting ping...", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔄 Refresh", callback_data="refresh_ping")]]))
+    start_time_msg = time.time()
+    try:
+        test = speedtest.Speedtest()
+        test.get_servers()
+        ping = test.results.ping
+    except Exception as e:
+        await msg.edit_text(f"❌ {e}", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔄 Refresh", callback_data="refresh_ping")]]))
+        return
+    ping_time = round((time.time() - start_time_msg) * 1000, 3)
+    uptime = timedelta(seconds=time.time() - start_time)
     uptime_str = format_uptime(uptime)
-    await msg.edit_text(f"💡 Ping: `{ping_time} ms`\n🕒 Uptime: `{uptime_str}`")
+    output = f"""<b>📊 Ping & Uptime</b>
+    <blockquote>💡 Ping: {ping}
+    ⏰ Uptime: {uptime_str}</blockquote>"""
+    await msg.edit_text(output, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔄 Refresh", callback_data="refresh_ping")]]), message_effect_id=5104841245755180586)
     
 @Bot.on_message(filters.command(["speedtest", "stats"]) & admin)
 async def stats(client, message):
