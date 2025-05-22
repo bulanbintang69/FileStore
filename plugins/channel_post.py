@@ -6,7 +6,7 @@ from pyrogram.errors import FloodWait
 from bot import Bot
 from helper_func import encode, admin
 
-DOWNLOAD_CHANNEL_ID = -1002233565278  # ganti dengan ID channel download
+DOWNLOAD_CHANNEL_ID = -1002573263047  # ganti dengan ID channel download
 
 @Bot.on_message(filters.private & admin & ~filters.command(['start', 'commands','users','broadcast','batch', 'custom_batch', 'genlink','stats', 'dlt_time', 'check_dlt_time', 'dbroadcast', 'ban', 'unban', 'banlist', 'addchnl', 'delchnl', 'listchnl', 'fsub_mode', 'pbroadcast', 'add_admin', 'deladmin', 'admins']))
 async def channel_post(client: Client, message: Message):
