@@ -12,10 +12,10 @@ DOWNLOAD_CHANNEL_ID = -1002573263047  # ganti dengan ID channel download
 async def channel_post(client: Client, message: Message):
     reply_text = await message.reply_text("Tunggu", quote = True)
     try:
-        post_message = await message.copy(chat_id = client.db_channel.id, disable_notification=True)
+        post_message = await message.copy(chat_id = client.db_channel.id, caption = f"ini caption contoh\n\np", disable_notification=True)
     except FloodWait as e:
         await asyncio.sleep(e.value)
-        post_message = await message.copy(chat_id = client.db_channel.id, disable_notification=True)
+        post_message = await message.copy(chat_id = client.db_channel.id, caption = f"ini caption contoh\n\np", disable_notification=True)
     except Exception as e:
         print(e)
         await reply_text.edit_text("Something went Wrong..!")
