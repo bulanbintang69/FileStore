@@ -11,25 +11,23 @@ from helper_func import encode, admin
 async def channel_post(client: Client, message: Message):
     reply_text = await message.reply_text("Please Wait...!", quote = True)
     try:
-        post_message = await message.copy(chat_id = client.db_channel.id, disable_notification=True)
-        converted_id = post_message.id * abs(client.db_channel.id)
-        string = f"get-{converted_id}"
-        base64_string = await encode(string)
-        link = f"https://t.me/{client.username}?start={base64_string}"
-        await post_message.edit_caption(f"<b>Link:</b> {link}")
+        temp_message = await message.copy(chat_id = client.db_channel.id)
+        post_message = await message.copy(chat_id = client.db_channel.id, caption = f"https://t.me/{client.username}?start={await encode(f'get-{temp_message.id * abs(client.db_channel.id)}')}", disable_notification=True)
+        await temp_message.delete()
     except FloodWait as e:
         await asyncio.sleep(e.x)
-        post_message = await message.copy(chat_id = client.db_channel.id, disable_notification=True)
-        converted_id = post_message.id * abs(client.db_channel.id)
-        string = f"get-{converted_id}"
-        base64_string = await encode(string)
-        link = f"https://t.me/{client.username}?start={base64_string}"
-        await post_message.edit_caption(f"<b>Link:</b> {link}")
+        temp_message = await message.copy(chat_id = client.db_channel.id)
+        post_message = await message.copy(chat_id = client.db_channel.id, caption = f"https://t.me/{client.username}?start={await encode(f'get-{temp_message.id * abs(client.db_channel.id)}')}", disable_notification=True)
+        await temp_message.delete()
     except Exception as e:
         print(e)
         await reply_text.edit_text("Something went Wrong..!")
         return
 
+    converted_id = post_message.id * abs(client.db_channel.id)
+    string = f"get-{converted_id}"
+    base64_string = await encode(string)
+    link = f"https://t.me/{client.username}?start={base64_string}"
     reply_markup = InlineKeyboardMarkup([[InlineKeyboardButton("🔁 Share URL", url=f'https://telegram.me/share/url?url={link}')]])
     await reply_text.edit(f"<b>Here is your link</b>\n\n{link}", reply_markup=reply_markup, disable_web_page_preview = True)
 
